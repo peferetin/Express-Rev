@@ -3,34 +3,12 @@ import "dotenv/config";
 import myMovies from "./data/movieData.js";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// movies got imported from movieData.js
+const port = process.env.PORT;
 
-// const myMovies = [
-//   {
-//     id: 1,
-//     title: "The Bodyguard",
-//     year: "1998",
-//   },
-//   {
-//     id: 2,
-//     title: "Scar-face",
-//     year: "1994",
-//   },
-//   {
-//     id: 3,
-//     title: "Heat",
-//     year: "2000",
-//   },
-
-//   {
-//     id: 4,
-//     title: "Terminator",
-//     year: "1998",
-//   },
-// ];
 app.get("/", (request, response) => response.send("hello World"));
-console.log(myMovies);
 
 app.get("/movies", (request, response) => {
   response.json(myMovies);
@@ -44,22 +22,20 @@ app.get("/movies/:id", (request, response) => {
   } else {
     response.status(404).send("Movie not found");
   }
-
-  //   const movie = myMovies.find((movie) => movie.id === parseInt(id));
-
-  //   if (movie) {
-  //     response.json(movie);
-  //   } else {
-  //     response.status(404).send("Movie not found");
-  //   }
 });
 
 app.post("/movies", (request, response) => {
-  const movie = request.body;
+  console.log(request.body);
+  const movie = {
+    id: parseInt(request.body.id),
+    title: request.body.title,
+    year: parseInt(request.body.year),
+  };
   myMovies.push(movie);
-  response.send(movie);
+  response.json(movie);
+  console.log(myMovies);
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(port, () => {
+  console.log("Server is running on port 8000 ");
 });
