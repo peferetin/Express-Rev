@@ -38,17 +38,17 @@ app.post("/movies", (request, response) => {
   console.log(myMovies);
 });
 
-app.put("/movies/:id", (request, response) => {
-  const id = request.params.id;
-  const movie = myMovies.find((movie) => movie.id == id);
-  if (movie) {
-    movie.title = request.body.title;
-    movie.year = request.body.year;
-    response.json(movie);
-  } else {
-    response.status(404).send("Movie not found");
-  }
-});
+// app.put("/movies/:id", (request, response) => {
+//   const id = request.params.id;
+//   const movie = myMovies.find((movie) => movie.id == id);
+//   if (movie) {
+//     movie.title = request.body.title;
+//     movie.year = request.body.year;
+//     response.json(movie);
+//   } else {
+//     response.status(404).send("Movie not found");
+//   }
+// });
 app.listen(port, () => {
   console.log("Server is running on port 8000 ");
 });
